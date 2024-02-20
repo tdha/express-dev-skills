@@ -6,15 +6,11 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <title>Skills</title>
 </head>
-<a href="/">Home</a>
-<body>
-    <h1>Skills List</h1>
-    <ul>
-      <% skills.forEach(function(s) { %>
-        <li>
-          <a href="/skills/<%= s.id %>"><%= s.skill %></a>
-        </li>
-      <% }); %>
-    </ul>
+  <body>
+    <a href="/">Home</a>
+    |
+    <a href="/skills">All Skills</a>
+    <h3><%= skill.skill %></h3>
+    <h3>Acquired: <%= skill.acquired ? 'Yes' : 'No' %></h3>
   </body>
 </html>
