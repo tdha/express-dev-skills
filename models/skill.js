@@ -10,25 +10,41 @@ const skills = [
     {id: 304, skill: 'AJAX', acquired: false},
     {id: 306, skill: 'API', acquired: false}
   ];
-	
+    
   module.exports = {
     getAll,
     getOne,
-    create
+    create,
+    deleteOne,
+    update
   };
-	
+    
   function getAll() {
     return skills;
   };
 
   function getOne(id) {
-    id = parseInt(id);
+    id = Number(id);
     return skills.find(skill => skill.id === id);
   };
 
   function create(skill) {
     // add the id
-    skill.id = Date.now() % 1000000;
+    skill.id = Date.now() % 1000;
     skill.acquired = false;
     skills.push(skill);
+  };
+
+  function deleteOne(id) {
+    // all properties attached to req.params are strings
+    id = Number(id);
+    // find the index based on the id of the skill object
+    const index = skills.findIndex(skill => skill.id === id);
+    skills.splice(index, 1);
+  };
+
+  function update(id, updatedSkill) {
+    id = Number(id);
+    const skill = skills.find(skill => skill.id === id);
+    Object.assign(skill, updatedSkill);
   };

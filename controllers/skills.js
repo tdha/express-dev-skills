@@ -4,7 +4,10 @@ module.exports = {
     index,
     show,
     new: newSkill,
-    create
+    create,
+    delete: deleteSkill,
+    edit,
+    update
 };
 
 
@@ -32,4 +35,23 @@ function create(req, res) {
     Skill.create(req.body);
     // Do a redirect anytime data is changed
     res.redirect('/skills');
+};
+
+function deleteSkill(req, res) {
+    Skill.deleteOne(req.params.id);
+    res.redirect('/skills');
+};
+
+function edit(req, res) {
+    const skill = Skill.getOne(req.params.id);
+    res.render('skills/edit', {
+        title: 'Edit Skill',
+        skill
+    });
+};
+
+function update(req, res) {
+    req.body.acquired = !!req.body.acquired;
+    Skill.update(req.params.id, req.body);
+    res.redirect(`/skills/${req.params.id}`);
 };
