@@ -1,18 +1,35 @@
-const skill = require('../models/skill');
+const Skill = require('../models/skill');
 
 module.exports = {
     index,
-    show
+    show,
+    new: newSkill,
+    create
 };
+
 
 function index(req, res) {
     res.render('skills/index', {
-        skills: skill.getAll()
+        skills: Skill.getAll(), 
+        title: 'All Skills'
     });
 };
 
 function show(req, res) {
     res.render('skills/show', {
-        skill: skill.getOne(req.params.id),
+        skill: Skill.getOne(req.params.id),
+        title: 'Skills Details'
     });
+};
+
+function newSkill(req, res) {
+    res.render('skills/new', { title: 'New Skill' });
+};
+
+function create(req, res) {
+    // console.log(req.body);
+    // The model is responsible for creating data
+    Skill.create(req.body);
+    // Do a redirect anytime data is changed
+    res.redirect('/skills');
 };
